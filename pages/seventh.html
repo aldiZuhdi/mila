@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memories Bento Grid</title>
+    <!-- BOOTSTRAP -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FONT AWESOME -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --primary-100: #ffe4ec;
+        --primary-200: #ffcce0;
+        --primary-300: #ffb3d1;
+        --primary-400: #ff99c2;
+        --primary-500: #ff80b4;
+        --primary-600: #ff66a3;
+        --primary-700: #ff4d94;
+        --primary-800: #e6397f;
+        --primary-900: #cc296b;
+      }
+
+      body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      .title-font {
+        font-family: 'Chewy', cursive;
+      }
+
+      /* Masonry / Pinterest Style Grid */
+      .grid-sizer,
+      .bento-item {
+        width: 100%;
+        margin-bottom: 16px;
+      }
+
+      @media (min-width: 576px) {
+        .grid-sizer,
+        .bento-item {
+          width: calc(50% - 8px);
+        }
+      }
+
+      @media (min-width: 992px) {
+        .grid-sizer,
+        .bento-item {
+          width: calc(33.333% - 10.666px);
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .grid-sizer,
+        .bento-item {
+          width: calc(25% - 12px);
+        }
+      }
+
+      .bento-card {
+        background: rgba(30, 30, 30, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      }
+
+      .bento-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(255, 128, 180, 0.25);
+        border-color: var(--primary-500);
+      }
+
+      .bento-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 16px 16px 0 0;
+      }
+
+      .bento-card video {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 16px 16px 0 0;
+      }
+
+      .bento-body {
+        padding: 12px 16px;
+      }
+
+      .badge-tag {
+        background: rgba(255, 128, 180, 0.15);
+        color: var(--primary-400);
+        border: 1px solid var(--primary-600);
+        font-size: 0.75rem;
+      }
+
+      .nav-btn {
+        background: rgba(255, 128, 180, 0.15);
+        border: 1px solid var(--primary-400);
+        color: #fff;
+        transition: all 0.2s ease;
+      }
+      .nav-btn:hover {
+        background: var(--primary-500);
+        border-color: var(--primary-500);
+        color: #fff;
+      }
+
+      /* Back to top button */
+      #btnTop {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 99;
+        background: var(--primary-600);
+        color: white;
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <!-- HEADER -->
+    <div class="container py-4">
+      <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 border-bottom border-secondary pb-3 mb-4">
+        <div>
+          <h1 class="title-font display-5 mb-0" style="color: var(--primary-400);">
+            <i class="fa-solid fa-photo-film me-2"></i>Memories Bento Gallery
+          </h1>
+          <p class="text-secondary small mb-0 mt-1">
+            Kumpulan kenangan foto & video tersusun secara alami dalam aspek rasio masing-masing.
+          </p>
+        </div>
+        <div class="d-flex gap-2">
+          <a href="sixth.html" class="btn nav-btn px-4 py-2 rounded-3 text-decoration-none">
+            <i class="fa-solid fa-arrow-left me-1"></i> Prev
+          </a>
+          <a href="../index.html" class="btn nav-btn px-4 py-2 rounded-3 text-decoration-none">
+            <i class="fa-solid fa-house me-1"></i> Home
+          </a>
+        </div>
+      </div>
+
+      <!-- BENTO MASONRY CONTAINER -->
+      <div id="bentoGrid" class="grid">
+        <div class="grid-sizer"></div>
+        <!-- Cards will be generated dynamically -->
+      </div>
+    </div>
+
+    <button id="btnTop" title="Ke Atas"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <!-- BOOTSTRAP JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- MASONRY & IMAGESLOADED LIBRARIES -->
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+    <script>
+      // Daftar seluruh berkas foto & video dari folder assets
+      const assetList = [
+        { type: "image", src: "../assets/1769892127994.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128007.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128019.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128032.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128045.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128139.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128243.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128407.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128558.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128584.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128596.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128608.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128620.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128632.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128751.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128894.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128916.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128927.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892128985.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129108.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129191.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129222.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129236.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129249.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129263.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129277.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129293.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129321.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129335.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129349.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129362.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129375.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129390.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129405.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129417.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129429.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129745.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129758.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129771.jpg", name: "Photo Memory" },
+        { type: "image", src: "../assets/1769892129789.jpg", name: "Photo Memory" },
+
+        // Images with WA/Camera names
+        { type: "image", src: "../assets/IMG-20260206-WA0034.jpg", name: "WhatsApp Image" },
+        { type: "image", src: "../assets/IMG-20260207-WA0027.jpeg", name: "WhatsApp Image" },
+        { type: "image", src: "../assets/IMG-20260313-WA0011.jpeg", name: "WhatsApp Image" },
+        { type: "image", src: "../assets/IMG-20260313-WA0023.jpeg", name: "WhatsApp Image" },
+        { type: "image", src: "../assets/IMG-20260313-WA0027.jpeg", name: "WhatsApp Image" },
+        { type: "image", src: "../assets/IMG-20260313-WA0030.jpeg", name: "WhatsApp Image" },
+        
+        { type: "image", src: "../assets/IMG_20260207_122719.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_122734.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_154159.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_154843.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_154849.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_175348.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_180729.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_181000.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_181134.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_183104.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_183131.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_183215.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_184154.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_184222.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_195203.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_195219.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_195921.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_202005.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_202329.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_202344.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_203813.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_204821.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_205127.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260207_205416.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260208_170850.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260208_170859.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260208_170939.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260208_171108.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260208_171113.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260208_171436.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260208_171859.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260208_200618.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260311_051728.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260311_052008.jpg", name: "Camera Photo" },
+        { type: "image", src: "../assets/IMG_20260311_052140.jpg", name: "Camera Photo" },
+
+        { type: "image", src: "../assets/MVIMG_20260206_101645.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_102446.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_102731.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_103719.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_103731.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_150804.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_150805.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_151919.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_152734.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_152741.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_171716.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_171728.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_180555.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260206_180603.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_131356.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_154217.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_175434.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_175439.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_175440.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_175441.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_175527.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_202755.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_202814.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_210531.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_210603.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260207_210610.jpg", name: "Motion Photo" },
+        { type: "image", src: "../assets/MVIMG_20260208_170916.jpg", name: "Motion Photo" },
+
+        // Screenshots
+        { type: "image", src: "../assets/Screenshot_2026-02-01-22-18-03-020_com.whatsapp.jpg", name: "Chat Screenshot" },
+        { type: "image", src: "../assets/Screenshot_2026-02-25-19-48-47-489_com.ss.android.ugc.trill.jpg", name: "TikTok Screenshot" },
+        { type: "image", src: "../assets/Screenshot_2026-03-02-22-02-00-515_com.whatsapp.jpg", name: "Chat Screenshot" },
+        { type: "image", src: "../assets/Screenshot_2026-03-02-22-02-38-892_com.whatsapp.jpg", name: "Chat Screenshot" },
+        { type: "image", src: "../assets/Screenshot_2026-03-12-11-31-18-163_com.whatsapp.jpg", name: "Chat Screenshot" },
+        { type: "image", src: "../assets/Screenshot_2026-03-18-20-40-30-527_com.whatsapp.jpg", name: "Chat Screenshot" },
+        { type: "image", src: "../assets/Screenshot_2026-03-26-00-48-00-361_lockscreen.jpg", name: "Lockscreen" },
+        { type: "image", src: "../assets/Screenshot_2026-03-26-00-48-03-304_lockscreen.jpg", name: "Lockscreen" },
+        { type: "image", src: "../assets/Screenshot_2026-03-26-00-48-07-862_lockscreen.jpg", name: "Lockscreen" },
+        { type: "image", src: "../assets/Screenshot_2026-03-27-19-07-10-808_com.whatsapp.jpg", name: "Chat Screenshot" },
+        { type: "image", src: "../assets/Screenshot_2026-04-01-16-48-40-621_com.whatsapp.jpg", name: "Chat Screenshot" },
+        { type: "image", src: "../assets/Screenshot_2026-04-08-19-30-19-924_com.whatsapp.jpg", name: "Chat Screenshot" },
+
+        // Videos with default browser controls toggle
+        { type: "video", src: "../assets/2026-02-07-135002326.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20250904-WA0048.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20250904-WA0049.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20250904-WA0053.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20250912-WA0023.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20250913-WA0050.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20250915-WA0000.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20250916-WA0014.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20250918-WA0128.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20250923-WA0050.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20250929-WA0029.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251001-WA0050.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251005-WA0062.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251005-WA0066.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251007-WA0029.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251010-WA0030.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251011-WA0023.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251013-WA0022.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251118-WA0020.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251118-WA0022.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251118-WA0024.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251118-WA0033.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251119-WA0037.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251201-WA0137.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20251219-WA0027.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260108-WA0094.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260121-WA0041.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260207-WA0024.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260207-WA0045.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260208-WA0051.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260209-WA0020.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260215-WA0037.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260216-WA0041.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260216-WA0050.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260313-WA0005.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260313-WA0035.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260316-WA0052.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260317-WA0010.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260317-WA0014.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260319-WA0016.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260320-WA0023.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260419-WA0058.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID-20260608-WA0216.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID_20260207_131403.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/VID_20260207_210459.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/baby.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/first-meet.mp4", name: "Video Memory" },
+        { type: "video", src: "../assets/we-meet.mp4", name: "Video Memory" }
+      ];
+
+      // Shuffle array (Acak urutan seperti Pinterest)
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+
+      // Render Bento Cards into Masonry grid
+      function renderBentoCards() {
+        const grid = document.getElementById("bentoGrid");
+        const shuffledAssets = shuffleArray([...assetList]);
+
+        shuffledAssets.forEach((asset, idx) => {
+          const item = document.createElement("div");
+          item.className = "bento-item";
+
+          let mediaHTML = "";
+          if (asset.type === "image") {
+            mediaHTML = `<img src="${asset.src}" alt="${asset.name}" loading="lazy" />`;
+          } else {
+            // Video autoplay muted dengan controls bawaan browser untuk unmute
+            mediaHTML = `
+              <video src="${asset.src}" autoplay loop muted controls preload="metadata" playsinline></video>
+            `;
+          }
+
+          item.innerHTML = `
+            <div class="bento-card">
+              ${mediaHTML}
+              <div class="bento-body d-flex align-items-center justify-content-between">
+                <span class="badge badge-tag rounded-pill px-3 py-1">
+                  ${asset.type === "image" ? '<i class="fa-regular fa-image me-1"></i> Image' : '<i class="fa-solid fa-video me-1"></i> Video'}
+                </span>
+                <span class="small text-secondary" style="font-size: 0.75rem;">#Memory ${idx + 1}</span>
+              </div>
+            </div>
+          `;
+
+          grid.appendChild(item);
+        });
+
+        // Initialize Masonry setalah imagesLoaded
+        imagesLoaded(grid, function () {
+          new Masonry(grid, {
+            itemSelector: ".bento-item",
+            columnWidth: ".grid-sizer",
+            percentPosition: true,
+            gutter: 16
+          });
+        });
+      }
+
+      // Scroll to Top Button
+      const btnTop = document.getElementById("btnTop");
+      window.onscroll = function() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+          btnTop.style.display = "flex";
+        } else {
+          btnTop.style.display = "none";
+        }
+      };
+      btnTop.onclick = function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      // Run on Load
+      document.addEventListener("DOMContentLoaded", renderBentoCards);
+    </script>
+  </body>
+</html>

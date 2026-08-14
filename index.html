@@ -136,14 +136,34 @@
       >
         <video
           class="vid"
-          style="scale: 250%;"
-          src="baby.mp4"
-          class="w-100"
+          style="width: 100dvw; height: 100dvh; object-fit: cover;"
+          src="assets/we-meet.mp4"
           autoplay
           loop
-          muted
-        ></video>
+        >
+        <!-- buat toggle untuk buka audio -->
+        </video>
       </div>
+
+      <!-- MUTE / UNMUTE TOGGLE BUTTON -->
+      <button
+        id="audioToggleBtn"
+        class="position-absolute top-0 end-0 m-4 btn rounded-circle d-flex align-items-center justify-content-center"
+        style="
+          z-index: 20;
+          width: 50px;
+          height: 50px;
+          background: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(8px);
+          border: 2px solid var(--primary-300);
+          color: var(--primary-800);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+          transition: all 0.3s ease;
+        "
+        aria-label="Toggle Audio"
+      >
+        <i id="audioIcon" class="fa-solid fa-volume-xmark fs-5"></i>
+      </button>
 
       <!-- TEXT -->
       <div
@@ -159,15 +179,13 @@
             </h4>
           </div>
           <div class="desc-start mt-1 text-start">
-            You’re my morning coffee, my late night comfort, and my permanent
-            playlist on repeat. Basically, you’re the reason my heart has no
-            ‘pause’ button.
+            Dua negara, dua kota, dan satu kenangan saat kita sempat bertemu. Sekarang, kamu tetap di berada di jauh sana dan aku tetap di sini bersama sepi, sebagai orang asing yang pernah saling sayang.
           </div>
           <div class="mt-5 text-start">
             <a
               class="btn-exp text-decoration-none px-4 py-3 rounded-2"
-              href="second.html"
-              >Explore more <i class="fa-solid fa-heart"></i></a
+              href="pages/second.html"
+              >Explore more <i class="fa-solid fa-smile"></i></a
             >
           </div>
         </div>
@@ -177,8 +195,32 @@
     <!-- BOOTSTRAP -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcXn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
+
+    <!-- MUTE / UNMUTE SCRIPT -->
+    <script>
+      const bgVideo = document.querySelector('.vid');
+      const audioToggleBtn = document.getElementById('audioToggleBtn');
+      const audioIcon = document.getElementById('audioIcon');
+
+      // Pastikan video dimulai dalam keadaan muted sesuai standar browser autoplay
+      bgVideo.muted = true;
+
+      audioToggleBtn.addEventListener('click', () => {
+        bgVideo.muted = !bgVideo.muted;
+        
+        if (bgVideo.muted) {
+          audioIcon.classList.remove('fa-volume-high');
+          audioIcon.classList.add('fa-volume-xmark');
+        } else {
+          audioIcon.classList.remove('fa-volume-xmark');
+          audioIcon.classList.add('fa-volume-high');
+          // Pastikan video memutar audio saat dimainkan
+          bgVideo.play().catch(e => console.log(e));
+        }
+      });
+    </script>
   </body>
 </html>
