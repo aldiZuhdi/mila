@@ -52,12 +52,15 @@
       }
 
       .bg-content {
-        background-color: #222;
-        border: 2px solid #333;
+        background: rgba(30, 20, 25, 0.9);
+        backdrop-filter: blur(15px);
+        border: 2px solid rgba(255, 128, 180, 0.3);
+        border-radius: 30px !important;
+        box-shadow: 0 15px 35px rgba(255, 105, 180, 0.25) !important;
       }
 
       .vid {
-        filter: brightness(0.5);
+        filter: brightness(0.45);
       }
 
       .two {
@@ -153,8 +156,8 @@
       </div>
 
       <!-- Content -->
-      <div class="position-absolute w-100 h-100 top-0 start-0 d-flex justify-content-center align-items-center px-3 py-5">
-        <div class="bg-content w-100 h-auto rounded-4 shadow-lg p-4 p-md-5 mb-5 d-flex flex-column justify-content-center align-items-center text-center" style="min-width: 280px; max-width:640px; max-height:85vh; overflow-y:auto;">
+      <div class="position-absolute w-100 h-100 top-0 start-0 d-flex justify-content-center align-items-center p-2 p-md-4">
+        <div class="bg-content w-100 rounded-4 shadow-lg p-3 p-md-5 d-flex flex-column justify-content-start align-items-center text-center" style="max-width: 640px; max-height: 88dvh; overflow-y: auto; -webkit-overflow-scrolling: touch;">
             
             <div class="text-light fs-1 mb-3">
               LOVE U <i class="fa-solid fa-heart" style="color: var(--primary-500);"></i>

@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
       rel="stylesheet"
     />
     <!-- FONT AWESOME -->
@@ -24,173 +24,182 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
   </head>
-  <body>
+  <body style="overflow-x: hidden;">
     <style>
       :root {
-        --primary-100: #ffe4ec;
-        --primary-200: #ffcce0;
-        --primary-300: #ffb3d1;
+        --primary-100: #fff0f5;
+        --primary-200: #ffe4ec;
+        --primary-300: #ffcce0;
         --primary-400: #ff99c2;
-        --primary-500: #ff80b4;
-        --primary-600: #ff66a3;
-        --primary-700: #ff4d94;
-        --primary-800: #e6397f;
-        --primary-900: #cc296b;
-        --secondary-100: #e6faf5;
-        --secondary-200: #ccf5eb;
-        --secondary-300: #b3efe0;
-        --secondary-400: #99e9d6;
-        --secondary-500: #80e3cc;
-        --secondary-600: #66d9bf;
-        --secondary-700: #4dcfb2;
-        --secondary-800: #33c4a6;
-        --secondary-900: #1ab897;
+        --primary-500: #ff69b4;
+        --primary-600: #ff409f;
+        --primary-700: #e62e8b;
+        --primary-800: #cc1b78;
       }
 
       * {
-        font-family: "Chewy";
+        font-family: "Poppins", sans-serif;
       }
 
-      .name {
-        font-family: "Poppins" !important;
-        line-height: 1 !important;
-        color: var(--primary-500);
-      }
-
-      .fullname {
-        text-shadow: 2px 2px 0px rgba(255, 185, 213, 0.75);
-        letter-spacing: 2px;
-      }
-
-      .desc-start {
-        font-family: "Poppins" !important;
+      .font-chewy {
+        font-family: "Chewy", cursive !important;
       }
 
       .vid {
-        filter: brightness(0.5);
+        object-fit: cover;
+        object-position: center;
+        filter: brightness(0.6) contrast(1.05);
       }
 
+      /* Cute Hero Container */
+      .hero-card {
+        background: rgba(255, 240, 245, 0.22);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-radius: 28px;
+        box-shadow: 0 12px 35px rgba(255, 105, 180, 0.25);
+        padding: 32px;
+        max-width: 620px;
+        width: 100%;
+        transition: all 0.3s ease;
+      }
+
+      .hero-name {
+        color: #ff69b4;
+        font-size: 3rem;
+        line-height: 1.1;
+        text-shadow: 2px 2px 10px rgba(255, 105, 180, 0.4);
+      }
+
+      .hero-fullname {
+        color: #ffffff;
+        font-size: 1.6rem;
+        letter-spacing: 1.5px;
+        text-shadow: 2px 3px 8px rgba(255, 105, 180, 0.6);
+      }
+
+      .hero-desc {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.95);
+        background: rgba(0, 0, 0, 0.25);
+        padding: 18px 22px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: justify;
+      }
+
+      /* Cute Explore Button */
       .btn-exp {
-        background-color: white;
-        color: var(--primary-500);
-        box-shadow: 4px 4px 0px 0px rgba(255, 128, 180, 1);
-        -webkit-box-shadow: 4px 4px 0px 0px rgba(255, 128, 180, 1);
-        -moz-box-shadow: 4px 4px 0px 0px rgba(255, 128, 180, 1);
-        transition: 0.2s ease-in-out;
+        font-weight: 600;
+        font-size: 1rem;
+        background: linear-gradient(135deg, #ffffff, #ffe4ec);
+        color: var(--primary-600);
+        border: 2px solid var(--primary-300);
+        border-radius: 16px !important;
+        box-shadow: 0 8px 20px rgba(255, 105, 180, 0.35);
+        padding: 12px 32px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
       .btn-exp:hover,
       .btn-exp:active {
-        background-color: var(--primary-500);
-        color: white;
-        box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 1);
-        -webkit-box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 1);
-        -moz-box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 1);
+        background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+        color: #ffffff;
+        border-color: var(--primary-500);
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 12px 25px rgba(255, 105, 180, 0.5);
       }
 
-      @media screen and (min-width: 768px) {
-        .content-hero {
-          width: 50% !important;
-        }
+      /* Floating Audio Toggle */
+      .audio-btn {
+        z-index: 20;
+        width: 48px;
+        height: 48px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(8px);
+        border: 2px solid var(--primary-300);
+        color: var(--primary-700);
+        box-shadow: 0 6px 18px rgba(255, 105, 180, 0.3);
+        transition: all 0.3s ease;
+      }
+      .audio-btn:hover {
+        background: var(--primary-500);
+        color: #ffffff;
+        transform: scale(1.08);
+      }
 
-        h1 {
-          font-size: 60px !important;
-          font-weight: 700 !important;
-          line-height: 1.2 !important;
+      @media (max-width: 576px) {
+        .hero-card {
+          padding: 18px;
+          border-radius: 20px;
+          max-height: 80vh;
+          overflow-y: auto;
         }
-
-        h2 {
-          font-size: 48px !important; /* 60 ÷ 1.25 */
-          font-weight: 600 !important;
-          line-height: 1.3 !important;
+        .hero-name {
+          font-size: 2rem;
         }
-
-        h3 {
-          font-size: 38px !important; /* 48 ÷ 1.25 */
-          font-weight: 600 !important;
-          line-height: 1.3 !important;
+        .hero-fullname {
+          font-size: 1.1rem;
         }
-
-        h4 {
-          font-size: 30px !important; /* 38 ÷ 1.25 */
-          font-weight: 500 !important;
-          line-height: 1.4 !important;
-        }
-
-        h5 {
-          font-size: 24px !important; /* 30 ÷ 1.25 */
-          font-weight: 500 !important;
-          line-height: 1.4 !important;
-        }
-
-        h6 {
-          font-size: 20px !important; /* 24 ÷ 1.2 */
-          font-weight: 500 !important;
-          line-height: 1.5 !important;
+        .hero-desc {
+          font-size: 0.82rem;
+          padding: 12px 14px;
         }
       }
     </style>
-    <div class="w-100 overflow-hidden position-relative" style="height: 100vh">
-      <!-- VIDEO -->
-      <div
-        class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden"
-      >
+
+    <div class="w-100 position-relative" style="min-height: 100vh; height: 100dvh; overflow: hidden;">
+      
+      <!-- BACKGROUND VIDEO -->
+      <div class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden">
         <video
-          class=""
-          style="width: 100dvw; height: 100dvh;"
+          class="vid w-100 h-100"
           src="assets/we-meet.mp4"
           autoplay
           loop
+          muted
           playsinline
-        >
-        <!-- buat toggle untuk buka audio -->
-        </video>
+        ></video>
       </div>
 
       <!-- MUTE / UNMUTE TOGGLE BUTTON -->
       <button
         id="audioToggleBtn"
-        class="position-absolute top-0 end-0 m-4 btn rounded-circle d-flex align-items-center justify-content-center"
-        style="
-          z-index: 20;
-          width: 50px;
-          height: 50px;
-          background: rgba(255, 255, 255, 0.85);
-          backdrop-filter: blur(8px);
-          border: 2px solid var(--primary-300);
-          color: var(--primary-800);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-          transition: all 0.3s ease;
-        "
+        class="position-absolute top-0 end-0 m-3 m-md-4 btn audio-btn rounded-circle d-flex align-items-center justify-content-center"
         aria-label="Toggle Audio"
       >
         <i id="audioIcon" class="fa-solid fa-volume-xmark fs-5"></i>
       </button>
 
-      <!-- TEXT -->
-      <div
-        class="position-absolute pb-5 d-flex justify-content-start align-items-end top-50 start-50 translate-middle text-center text-white"
-        style="z-index: 10; height: 100vh; width: 100%"
-      >
-        <!-- LEFT SIDE -->
-        <div class="content-hero w-100 justify-content-start p-5">
-          <div class="text-start"><h1 class="fw-bold name">Hello, Mila</h1></div>
+      <!-- HERO CONTENT AT BOTTOM LEFT CORNER -->
+      <div class="position-absolute bottom-0 start-0 w-100 p-4 p-md-5 d-flex align-items-end justify-content-start" style="z-index: 10;">
+        <div class="hero-card">
           <div class="text-start">
-            <h4 class="fullname" style="font-family: 'Chewy'">
+            <h1 class="fw-bold font-chewy hero-name mb-0">Hello, Mila ✨</h1>
+          </div>
+          <div class="text-start mt-1">
+            <h4 class="font-chewy hero-fullname mb-0">
               Amyllah Fadhllynah Binti Nur Amin
             </h4>
           </div>
-          <div class="desc-start mt-1 text-start">
-            Dua negara, dua kota, dan satu kenangan saat kita sempat bertemu. Sekarang, kamu tetap di berada di jauh sana dan aku tetap di sini bersama sepi, sebagai orang asing yang pernah saling sayang.
+          <div class="hero-desc mt-3">
+            Dua negara, dua kota, dan satu kenangan saat kita sempat bertemu. Sekarang, kamu tetap berada di jauh sana dan aku tetap di sini bersama sepi, sebagai orang asing yang pernah saling sayang.
           </div>
-          <div class="mt-5 text-start">
+          <div class="mt-4 text-start">
             <a
-              class="btn-exp text-decoration-none px-4 py-3 rounded-2"
+              class="btn-exp text-decoration-none"
               href="pages/second.html"
-              >Explore more</a
             >
+              Explore more <i class="fa-solid fa-sparkles"></i>
+            </a>
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- BOOTSTRAP -->
@@ -206,7 +215,7 @@
       const audioToggleBtn = document.getElementById('audioToggleBtn');
       const audioIcon = document.getElementById('audioIcon');
 
-      // Pastikan video dimulai dalam keadaan muted sesuai standar browser autoplay
+      // Default muted
       bgVideo.muted = true;
 
       audioToggleBtn.addEventListener('click', () => {
@@ -218,7 +227,6 @@
         } else {
           audioIcon.classList.remove('fa-volume-xmark');
           audioIcon.classList.add('fa-volume-high');
-          // Pastikan video memutar audio saat dimainkan
           bgVideo.play().catch(e => console.log(e));
         }
       });
